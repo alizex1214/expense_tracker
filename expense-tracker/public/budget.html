@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget — ExpenseTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+
+  <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/60 z-20 lg:hidden"></div>
+
+  <aside id="sidebar" class="fixed lg:sticky top-0 left-0 h-screen w-64 bg-slate-900 border-r border-slate-800 flex flex-col z-30 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    <div class="p-6 border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-lg">💰</div>
+        <div>
+          <h1 class="font-bold text-white text-sm">ExpenseTrack</h1>
+          <p class="text-xs text-slate-500">Personal Finance</p>
+        </div>
+      </div>
+    </div>
+    <nav id="sidebar-nav" class="flex-1 p-4 space-y-1 overflow-y-auto"></nav>
+    <div class="p-4 border-t border-slate-800">
+      <p class="text-xs text-slate-600 text-center">CSC-251 Assignment 4</p>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-h-screen">
+    <header class="sticky top-0 z-10 bg-slate-950/90 backdrop-blur border-b border-slate-800 px-6 py-4 flex items-center gap-4">
+      <button id="menu-btn" class="lg:hidden text-slate-400 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="flex-1">
+        <h2 class="font-bold text-lg text-white">Budget Planner</h2>
+        <p class="text-xs text-slate-500">Set spending limits per category</p>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 space-y-6">
+      <!-- Set Budget Form -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in">
+        <h3 class="font-semibold text-white mb-4 flex items-center gap-2"><span>🎯</span> Set Monthly Budget</h3>
+        <form id="budget-form" class="flex flex-wrap gap-3 items-end">
+          <div class="flex-1 min-w-36">
+            <label class="block text-xs text-slate-400 mb-1 font-medium">Category *</label>
+            <select id="b-category" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500">
+              <option value="">Select category</option>
+            </select>
+          </div>
+          <div class="flex-1 min-w-36">
+            <label class="block text-xs text-slate-400 mb-1 font-medium">Monthly Limit (Rs) *</label>
+            <input id="b-limit" type="number" min="1" required placeholder="e.g. 5000"
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500 placeholder-slate-600" />
+          </div>
+          <div class="flex-1 min-w-36">
+            <label class="block text-xs text-slate-400 mb-1 font-medium">Month *</label>
+            <input id="b-month" type="month" required
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500" />
+          </div>
+          <button type="submit" class="bg-sky-500 hover:bg-sky-400 text-white px-6 py-2.5 rounded-xl font-semibold transition-colors text-sm">
+            Set Budget
+          </button>
+        </form>
+      </div>
+
+      <!-- Budget Cards -->
+      <div>
+        <h3 class="font-semibold text-white mb-4 flex items-center gap-2"><span>📋</span> Current Budgets</h3>
+        <div id="budgets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 fade-in-delay-1"></div>
+      </div>
+
+      <!-- Tips -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-2">
+        <h3 class="font-semibold text-white mb-4 flex items-center gap-2"><span>💡</span> Budgeting Tips</h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-slate-800/50 rounded-xl p-4">
+            <p class="text-amber-400 font-semibold text-sm mb-1">50/30/20 Rule</p>
+            <p class="text-slate-400 text-xs">50% needs, 30% wants, 20% savings. A simple framework for healthy finances.</p>
+          </div>
+          <div class="bg-slate-800/50 rounded-xl p-4">
+            <p class="text-emerald-400 font-semibold text-sm mb-1">Track Every Rupee</p>
+            <p class="text-slate-400 text-xs">Log every expense, no matter how small. Small purchases add up quickly over time.</p>
+          </div>
+          <div class="bg-slate-800/50 rounded-xl p-4">
+            <p class="text-sky-400 font-semibold text-sm mb-1">Review Monthly</p>
+            <p class="text-slate-400 text-xs">Check your budget at month end. Adjust limits based on your actual spending patterns.</p>
+          </div>
+          <div class="bg-slate-800/50 rounded-xl p-4">
+            <p class="text-purple-400 font-semibold text-sm mb-1">Emergency Fund</p>
+            <p class="text-slate-400 text-xs">Aim for 3–6 months of expenses saved. It provides a financial safety net.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="fixed top-5 right-5 z-50 px-5 py-3 rounded-xl text-white font-medium shadow-2xl bg-emerald-500"></div>
+  <script src="/js/app.js"></script>
+  <script>
+    // Populate category select
+    const catSel = document.getElementById('b-category');
+    CATEGORIES.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c; o.textContent = `${CAT_ICONS[c]} ${c}`;
+      catSel.appendChild(o);
+    });
+    document.getElementById('b-month').value = currentMonth();
+
+    async function loadBudgets() {
+      try {
+        const month = currentMonth();
+        const [budgetsRes, summaryRes] = await Promise.all([
+          apiFetch('/api/budgets'),
+          apiFetch(`/api/expenses/summary?month=${month}`)
+        ]);
+        const budgets = budgetsRes.data.filter(b => b.month === month);
+        const spent = summaryRes.data.byCategory;
+
+        const grid = document.getElementById('budgets-grid');
+        grid.innerHTML = budgets.length ? budgets.map(b => {
+          const s = spent[b.category] || 0;
+          const pct = Math.min(Math.round(s / b.limit * 100), 100);
+          const remaining = b.limit - s;
+          const color = pct >= 100 ? '#f87171' : pct >= 80 ? '#fb923c' : '#34d399';
+          const statusText = pct >= 100 ? 'Over Budget!' : pct >= 80 ? 'Almost Reached' : 'On Track';
+          const statusColor = pct >= 100 ? 'text-red-400' : pct >= 80 ? 'text-amber-400' : 'text-emerald-400';
+          return `
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 card-glow">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl">${CAT_ICONS[b.category] || '📦'}</span>
+                <div>
+                  <p class="font-semibold text-white text-sm">${b.category}</p>
+                  <p class="text-xs ${statusColor}">${statusText}</p>
+                </div>
+              </div>
+              <button onclick="deleteBudget('${b._id}')" class="w-7 h-7 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 flex items-center justify-center transition-colors text-xs">✕</button>
+            </div>
+            <div class="h-3 bg-slate-800 rounded-full overflow-hidden mb-3">
+              <div class="h-full rounded-full progress-bar" style="width:${pct}%;background:${color}"></div>
+            </div>
+            <div class="space-y-1 text-xs">
+              <div class="flex justify-between text-slate-400">
+                <span>Spent</span><span class="text-white mono font-medium">${formatCurrency(s)}</span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>Limit</span><span class="text-white mono font-medium">${formatCurrency(b.limit)}</span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>Remaining</span>
+                <span class="mono font-medium ${remaining < 0 ? 'text-red-400' : 'text-emerald-400'}">${formatCurrency(Math.abs(remaining))} ${remaining < 0 ? 'over' : 'left'}</span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>Progress</span><span class="text-white font-medium">${pct}%</span>
+              </div>
+            </div>
+          </div>`;
+        }).join('') : `
+          <div class="col-span-full text-center py-12 text-slate-600">
+            <p class="text-4xl mb-3">🎯</p>
+            <p class="font-medium">No budgets set for this month</p>
+            <p class="text-sm mt-1">Use the form above to set spending limits.</p>
+          </div>`;
+      } catch(err) {
+        showToast('Failed to load budgets', 'error');
+      }
+    }
+
+    document.getElementById('budget-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        category: document.getElementById('b-category').value,
+        limit: document.getElementById('b-limit').value,
+        month: document.getElementById('b-month').value
+      };
+      try {
+        await apiFetch('/api/budgets', { method: 'POST', body: JSON.stringify(body) });
+        showToast(`Budget set for ${body.category}! 🎯`);
+        e.target.reset();
+        document.getElementById('b-month').value = currentMonth();
+        loadBudgets();
+      } catch(err) {
+        showToast(err.message || 'Failed to set budget', 'error');
+      }
+    });
+
+    async function deleteBudget(id) {
+      try {
+        await apiFetch(`/api/budgets/${id}`, { method: 'DELETE' });
+        showToast('Budget removed');
+        loadBudgets();
+      } catch(err) {
+        showToast('Delete failed', 'error');
+      }
+    }
+
+    loadBudgets();
+  </script>
+</body>
+</html>

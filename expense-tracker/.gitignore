@@ -1,0 +1,4 @@
+
+PORT=3000
+NODE_ENV=development
+mongodb+srv://Expense:bXoOjqvAeKCNWd6S@cluster0.cv5ii98.mongodb.net/expense-tracker?appName=Cluster0

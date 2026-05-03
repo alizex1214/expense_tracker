@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — ExpenseTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+
+  <!-- Mobile overlay -->
+  <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/60 z-20 lg:hidden"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed lg:sticky top-0 left-0 h-screen w-64 bg-slate-900 border-r border-slate-800 flex flex-col z-30 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    <div class="p-6 border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-lg">💰</div>
+        <div>
+          <h1 class="font-bold text-white text-sm">ExpenseTrack</h1>
+          <p class="text-xs text-slate-500">Personal Finance</p>
+        </div>
+      </div>
+    </div>
+    <nav id="sidebar-nav" class="flex-1 p-4 space-y-1 overflow-y-auto"></nav>
+    <div class="p-4 border-t border-slate-800">
+      <p class="text-xs text-slate-600 text-center">CSC-251 Assignment 4</p>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="flex-1 flex flex-col min-h-screen lg:ml-0">
+    <!-- Topbar -->
+    <header class="sticky top-0 z-10 bg-slate-950/90 backdrop-blur border-b border-slate-800 px-6 py-4 flex items-center gap-4">
+      <button id="menu-btn" class="lg:hidden text-slate-400 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="flex-1">
+        <h2 class="font-bold text-lg text-white">Dashboard</h2>
+        <p class="text-xs text-slate-500" id="current-date"></p>
+      </div>
+      <button onclick="document.getElementById('add-modal').classList.remove('hidden')"
+        class="flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        Add Expense
+      </button>
+    </header>
+
+    <!-- Page Content -->
+    <main class="flex-1 p-6 space-y-6">
+
+      <!-- Summary Cards -->
+      <div id="summary-cards" class="grid grid-cols-2 lg:grid-cols-4 gap-4 fade-in">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 card-glow col-span-2 lg:col-span-1">
+          <p class="text-slate-500 text-xs font-medium uppercase tracking-wider mb-2">Total This Month</p>
+          <p class="text-3xl font-bold text-white mono" id="total-amount">—</p>
+          <p class="text-xs text-slate-500 mt-1" id="total-count">— expenses</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 card-glow">
+          <p class="text-slate-500 text-xs font-medium uppercase tracking-wider mb-2">Top Category</p>
+          <p class="text-xl font-bold text-amber-400" id="top-cat">—</p>
+          <p class="text-xs text-slate-500 mt-1" id="top-cat-amt">—</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 card-glow">
+          <p class="text-slate-500 text-xs font-medium uppercase tracking-wider mb-2">Biggest Expense</p>
+          <p class="text-xl font-bold text-rose-400 truncate" id="biggest-exp">—</p>
+          <p class="text-xs text-slate-500 mt-1" id="biggest-amt">—</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 card-glow">
+          <p class="text-slate-500 text-xs font-medium uppercase tracking-wider mb-2">Daily Average</p>
+          <p class="text-xl font-bold text-emerald-400 mono" id="daily-avg">—</p>
+          <p class="text-xs text-slate-500 mt-1">this month</p>
+        </div>
+      </div>
+
+      <!-- Category Breakdown + Recent Expenses -->
+      <div class="grid lg:grid-cols-2 gap-6">
+        <!-- Category Breakdown -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-1">
+          <h3 class="font-semibold text-white mb-4 flex items-center gap-2">
+            <span>📊</span> Category Breakdown
+          </h3>
+          <div id="category-breakdown" class="space-y-3"></div>
+        </div>
+
+        <!-- Recent Expenses -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-2">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-semibold text-white flex items-center gap-2"><span>🕐</span> Recent Expenses</h3>
+            <a href="/expenses" class="text-xs text-sky-400 hover:text-sky-300">View all →</a>
+          </div>
+          <div id="recent-expenses" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <!-- Budget Status -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-3">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-white flex items-center gap-2"><span>🎯</span> Budget Status</h3>
+          <a href="/budget" class="text-xs text-sky-400 hover:text-sky-300">Manage budgets →</a>
+        </div>
+        <div id="budget-status" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Add Expense Modal -->
+  <div id="add-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-backdrop bg-black/70 p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-6">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="font-bold text-lg text-white">Add New Expense</h3>
+        <button onclick="document.getElementById('add-modal').classList.add('hidden')" class="text-slate-500 hover:text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="add-form" class="space-y-4">
+        <div>
+          <label class="block text-xs text-slate-400 mb-1 font-medium">Title *</label>
+          <input id="f-title" type="text" placeholder="e.g. Grocery shopping" required
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500 placeholder-slate-600" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1 font-medium">Amount (Rs) *</label>
+            <input id="f-amount" type="number" placeholder="0" min="1" required
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500 placeholder-slate-600" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1 font-medium">Date *</label>
+            <input id="f-date" type="date" required
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1 font-medium">Category *</label>
+          <select id="f-category" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500">
+            <option value="">Select category</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1 font-medium">Note (optional)</label>
+          <textarea id="f-note" rows="2" placeholder="Any additional details..."
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-sky-500 placeholder-slate-600 resize-none"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-white py-3 rounded-xl font-semibold transition-colors text-sm">
+          Add Expense
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed top-5 right-5 z-50 px-5 py-3 rounded-xl text-white font-medium shadow-2xl bg-emerald-500"></div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // Populate date and category select
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-PK', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+
+    const catSel = document.getElementById('f-category');
+    CATEGORIES.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c; o.textContent = `${CAT_ICONS[c]} ${c}`;
+      catSel.appendChild(o);
+    });
+
+    async function loadDashboard() {
+      const month = currentMonth();
+      try {
+        const [summaryRes, expRes] = await Promise.all([
+          apiFetch(`/api/expenses/summary?month=${month}`),
+          apiFetch(`/api/expenses?month=${month}`)
+        ]);
+        const s = summaryRes.data;
+        const expenses = expRes.data;
+
+        // Stats
+        document.getElementById('total-amount').textContent = formatCurrency(s.total);
+        document.getElementById('total-count').textContent = `${s.count} expense${s.count !== 1 ? 's' : ''}`;
+
+        const topCat = Object.entries(s.byCategory).sort((a,b)=>b[1]-a[1])[0];
+        if (topCat) {
+          document.getElementById('top-cat').textContent = `${CAT_ICONS[topCat[0]]} ${topCat[0]}`;
+          document.getElementById('top-cat-amt').textContent = formatCurrency(topCat[1]);
+        }
+
+        if (s.highest) {
+          document.getElementById('biggest-exp').textContent = s.highest.title;
+          document.getElementById('biggest-amt').textContent = formatCurrency(s.highest.amount);
+        }
+
+        const daysInMonth = new Date().getDate();
+        document.getElementById('daily-avg').textContent = formatCurrency(Math.round(s.total / daysInMonth));
+
+        // Category breakdown
+        const breakdown = document.getElementById('category-breakdown');
+        const sorted = Object.entries(s.byCategory).sort((a,b)=>b[1]-a[1]);
+        breakdown.innerHTML = sorted.length ? sorted.map(([cat, amt]) => {
+          const pct = s.total ? Math.round(amt / s.total * 100) : 0;
+          const color = CAT_COLORS[cat] || '#94a3b8';
+          return `<div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-slate-300">${CAT_ICONS[cat] || '📦'} ${cat}</span>
+              <span class="text-slate-400 mono">${formatCurrency(amt)} <span class="text-slate-600">(${pct}%)</span></span>
+            </div>
+            <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full rounded-full progress-bar" style="width:${pct}%;background:${color}"></div>
+            </div>
+          </div>`;
+        }).join('') : '<p class="text-slate-600 text-sm">No expenses this month.</p>';
+
+        // Recent expenses (last 5)
+        const recent = document.getElementById('recent-expenses');
+        recent.innerHTML = expenses.slice(0, 5).map(e => `
+          <div class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-xl">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style="background:${CAT_COLORS[e.category] || '#94a3b8'}22">
+              ${CAT_ICONS[e.category] || '📦'}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-white truncate">${e.title}</p>
+              <p class="text-xs text-slate-500">${formatDate(e.date)}</p>
+            </div>
+            <p class="text-sm font-semibold text-white mono flex-shrink-0">${formatCurrency(e.amount)}</p>
+          </div>
+        `).join('') || '<p class="text-slate-600 text-sm">No expenses yet.</p>';
+
+        // Budget status
+        const budgetEl = document.getElementById('budget-status');
+        const budgets = s.budgets.filter(b => b.month === month);
+        budgetEl.innerHTML = budgets.length ? budgets.map(b => {
+          const spent = s.byCategory[b.category] || 0;
+          const pct = Math.min(Math.round(spent / b.limit * 100), 100);
+          const color = pct >= 100 ? '#f87171' : pct >= 80 ? '#fb923c' : '#34d399';
+          const status = pct >= 100 ? '🔴 Over budget' : pct >= 80 ? '🟡 Almost there' : '🟢 On track';
+          return `<div class="bg-slate-800/50 rounded-xl p-4">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-sm font-medium text-white">${CAT_ICONS[b.category]} ${b.category}</span>
+              <span class="text-xs text-slate-500">${status}</span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden mb-2">
+              <div class="h-full rounded-full progress-bar" style="width:${pct}%;background:${color}"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-500">
+              <span>Spent: <span class="text-white">${formatCurrency(spent)}</span></span>
+              <span>Limit: <span class="text-white">${formatCurrency(b.limit)}</span></span>
+            </div>
+          </div>`;
+        }).join('') : '<p class="text-slate-500 text-sm col-span-full">No budgets set. <a href="/budget" class="text-sky-400">Set one →</a></p>';
+
+      } catch(err) {
+        showToast('Failed to load dashboard data', 'error');
+      }
+    }
+
+    // Add expense form
+    document.getElementById('add-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        title: document.getElementById('f-title').value,
+        amount: document.getElementById('f-amount').value,
+        category: document.getElementById('f-category').value,
+        date: document.getElementById('f-date').value,
+        note: document.getElementById('f-note').value
+      };
+      try {
+        await apiFetch('/api/expenses', { method: 'POST', body: JSON.stringify(body) });
+        showToast('Expense added successfully! 🎉');
+        document.getElementById('add-modal').classList.add('hidden');
+        e.target.reset();
+        document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+        loadDashboard();
+      } catch(err) {
+        showToast(err.message || 'Failed to add expense', 'error');
+      }
+    });
+
+    loadDashboard();
+  </script>
+</body>
+</html>

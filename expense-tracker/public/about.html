@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — ExpenseTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+
+  <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/60 z-20 lg:hidden"></div>
+
+  <aside id="sidebar" class="fixed lg:sticky top-0 left-0 h-screen w-64 bg-slate-900 border-r border-slate-800 flex flex-col z-30 transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    <div class="p-6 border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-lg">💰</div>
+        <div>
+          <h1 class="font-bold text-white text-sm">ExpenseTrack</h1>
+          <p class="text-xs text-slate-500">Personal Finance</p>
+        </div>
+      </div>
+    </div>
+    <nav id="sidebar-nav" class="flex-1 p-4 space-y-1 overflow-y-auto"></nav>
+    <div class="p-4 border-t border-slate-800">
+      <p class="text-xs text-slate-600 text-center">CSC-251 Assignment 4</p>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-h-screen">
+    <header class="sticky top-0 z-10 bg-slate-950/90 backdrop-blur border-b border-slate-800 px-6 py-4 flex items-center gap-4">
+      <button id="menu-btn" class="lg:hidden text-slate-400 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div>
+        <h2 class="font-bold text-lg text-white">About & Documentation</h2>
+        <p class="text-xs text-slate-500">Assignment 4 — CSC-251 Web Technologies</p>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 space-y-6 max-w-4xl mx-auto w-full">
+
+      <!-- Project Info -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-3xl">💰</div>
+          <div>
+            <h3 class="text-xl font-bold text-white">ExpenseTrack</h3>
+            <p class="text-slate-400 text-sm">Personal Finance Manager — Full-Stack Web Application</p>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3 text-sm">
+          <div class="bg-slate-800/50 rounded-xl p-3"><span class="text-slate-500">Course:</span> <span class="text-white ml-2">WEB TECHNOLOGIES (CSC-251)</span></div>
+          <div class="bg-slate-800/50 rounded-xl p-3"><span class="text-slate-500">Assignment:</span> <span class="text-white ml-2">4 — Full-Stack Website (CLO-3)</span></div>
+          <div class="bg-slate-800/50 rounded-xl p-3"><span class="text-slate-500">University:</span> <span class="text-white ml-2">PMAS Arid Agriculture University</span></div>
+          <div class="bg-slate-800/50 rounded-xl p-3"><span class="text-slate-500">Instructor:</span> <span class="text-white ml-2">Dr. Muhammad Habib</span></div>
+        </div>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-1">
+        <h3 class="font-semibold text-white mb-4 flex items-center gap-2"><span>🛠️</span> Tech Stack</h3>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div class="bg-slate-800/50 rounded-xl p-4">
+            <p class="text-sky-400 font-semibold text-sm mb-2">Backend</p>
+            <ul class="space-y-1.5 text-sm text-slate-400">
+              <li>✅ Node.js (v18+) — Runtime environment</li>
+              <li>✅ Express.js — Web framework & routing</li>
+              <li>✅ REST API — CRUD endpoints</li>
+              <li>✅ CORS middleware — Cross-origin support</li>
+              <li>✅ dotenv — Environment configuration</li>
+              <li>✅ uuid — Unique ID generation</li>
+              <li>✅ In-memory storage (no DB required)</li>
+            </ul>
+          </div>
+          <div class="bg-slate-800/50 rounded-xl p-4">
+            <p class="text-emerald-400 font-semibold text-sm mb-2">Frontend</p>
+            <ul class="space-y-1.5 text-sm text-slate-400">
+              <li>✅ HTML5 — Semantic markup</li>
+              <li>✅ Tailwind CSS (CDN) — Responsive styling</li>
+              <li>✅ Vanilla JavaScript — Frontend logic</li>
+              <li>✅ Chart.js — Data visualizations</li>
+              <li>✅ Fetch API — Backend communication</li>
+              <li>✅ Custom CSS animations</li>
+              <li>✅ Google Fonts — Typography</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Documentation -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-2">
+        <h3 class="font-semibold text-white mb-4 flex items-center gap-2"><span>📡</span> API Documentation</h3>
+        <div class="space-y-2">
+          <!-- Expenses -->
+          <p class="text-slate-400 text-xs uppercase tracking-wider font-medium pt-2">Expense Endpoints</p>
+          <div id="api-test-result" class="hidden bg-slate-800 rounded-xl p-3 mb-3 text-xs text-emerald-400 mono overflow-x-auto"></div>
+          ${[
+            { method: 'GET', path: '/api/expenses', desc: 'Get all expenses (supports ?category=, ?month=, ?sort= filters)', color: 'bg-sky-500/20 text-sky-400' },
+            { method: 'GET', path: '/api/expenses/summary', desc: 'Get spending summary & category breakdown', color: 'bg-sky-500/20 text-sky-400' },
+            { method: 'GET', path: '/api/expenses/:id', desc: 'Get single expense by ID', color: 'bg-sky-500/20 text-sky-400' },
+            { method: 'POST', path: '/api/expenses', desc: 'Create new expense { title, amount, category, date, note }', color: 'bg-emerald-500/20 text-emerald-400' },
+            { method: 'PUT', path: '/api/expenses/:id', desc: 'Update expense fields by ID', color: 'bg-amber-500/20 text-amber-400' },
+            { method: 'DELETE', path: '/api/expenses/:id', desc: 'Delete expense by ID', color: 'bg-red-500/20 text-red-400' }
+          ].map(r => `
+            <div class="flex flex-wrap items-start gap-3 py-2.5 border-b border-slate-800/50">
+              <span class="text-xs font-bold px-2 py-0.5 rounded-md ${r.color} flex-shrink-0">${r.method}</span>
+              <code class="text-sky-300 text-xs mono flex-shrink-0">${r.path}</code>
+              <span class="text-slate-500 text-xs">${r.desc}</span>
+            </div>`).join('')}
+          <p class="text-slate-400 text-xs uppercase tracking-wider font-medium pt-3">Budget Endpoints</p>
+          ${[
+            { method: 'GET', path: '/api/budgets', desc: 'Get all budgets', color: 'bg-sky-500/20 text-sky-400' },
+            { method: 'POST', path: '/api/budgets', desc: 'Set budget { category, limit, month }', color: 'bg-emerald-500/20 text-emerald-400' },
+            { method: 'DELETE', path: '/api/budgets/:id', desc: 'Delete a budget', color: 'bg-red-500/20 text-red-400' }
+          ].map(r => `
+            <div class="flex flex-wrap items-start gap-3 py-2.5 border-b border-slate-800/50">
+              <span class="text-xs font-bold px-2 py-0.5 rounded-md ${r.color} flex-shrink-0">${r.method}</span>
+              <code class="text-sky-300 text-xs mono flex-shrink-0">${r.path}</code>
+              <span class="text-slate-500 text-xs">${r.desc}</span>
+            </div>`).join('')}
+          <p class="text-slate-400 text-xs uppercase tracking-wider font-medium pt-3">Health Check</p>
+          <div class="flex flex-wrap items-start gap-3 py-2.5">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-400 flex-shrink-0">GET</span>
+            <code class="text-sky-300 text-xs mono flex-shrink-0">/api/health</code>
+            <span class="text-slate-500 text-xs">Server status check</span>
+            <button onclick="testHealth()" class="text-xs bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 px-3 py-0.5 rounded-lg transition-colors">▶ Test</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning Resources -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-3">
+        <h3 class="font-semibold text-white mb-4 flex items-center gap-2"><span>📚</span> Learning Resources Used</h3>
+        <div class="grid sm:grid-cols-2 gap-3 text-sm">
+          <a href="https://nodejs.org/docs" target="_blank" class="flex items-center gap-3 bg-slate-800/50 hover:bg-slate-800 rounded-xl p-3 transition-colors group">
+            <span class="text-xl">🟢</span>
+            <div>
+              <p class="text-white font-medium group-hover:text-sky-400 transition-colors">Node.js Official Docs</p>
+              <p class="text-slate-500 text-xs">nodejs.org/docs</p>
+            </div>
+          </a>
+          <a href="https://expressjs.com" target="_blank" class="flex items-center gap-3 bg-slate-800/50 hover:bg-slate-800 rounded-xl p-3 transition-colors group">
+            <span class="text-xl">⚡</span>
+            <div>
+              <p class="text-white font-medium group-hover:text-sky-400 transition-colors">Express.js Documentation</p>
+              <p class="text-slate-500 text-xs">expressjs.com</p>
+            </div>
+          </a>
+          <a href="https://tailwindcss.com/docs" target="_blank" class="flex items-center gap-3 bg-slate-800/50 hover:bg-slate-800 rounded-xl p-3 transition-colors group">
+            <span class="text-xl">🎨</span>
+            <div>
+              <p class="text-white font-medium group-hover:text-sky-400 transition-colors">Tailwind CSS Docs</p>
+              <p class="text-slate-500 text-xs">tailwindcss.com/docs</p>
+            </div>
+          </a>
+          <a href="https://www.chartjs.org/docs" target="_blank" class="flex items-center gap-3 bg-slate-800/50 hover:bg-slate-800 rounded-xl p-3 transition-colors group">
+            <span class="text-xl">📊</span>
+            <div>
+              <p class="text-white font-medium group-hover:text-sky-400 transition-colors">Chart.js Documentation</p>
+              <p class="text-slate-500 text-xs">chartjs.org</p>
+            </div>
+          </a>
+          <a href="https://developer.mozilla.org" target="_blank" class="flex items-center gap-3 bg-slate-800/50 hover:bg-slate-800 rounded-xl p-3 transition-colors group">
+            <span class="text-xl">🦊</span>
+            <div>
+              <p class="text-white font-medium group-hover:text-sky-400 transition-colors">MDN Web Docs</p>
+              <p class="text-slate-500 text-xs">developer.mozilla.org</p>
+            </div>
+          </a>
+          <a href="https://render.com/docs" target="_blank" class="flex items-center gap-3 bg-slate-800/50 hover:bg-slate-800 rounded-xl p-3 transition-colors group">
+            <span class="text-xl">🚀</span>
+            <div>
+              <p class="text-white font-medium group-hover:text-sky-400 transition-colors">Render Deployment Docs</p>
+              <p class="text-slate-500 text-xs">render.com/docs</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Deployment Steps -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 fade-in-delay-3">
+        <h3 class="font-semibold text-white mb-4 flex items-center gap-2"><span>🚀</span> Deployment Steps (Render.com)</h3>
+        <ol class="space-y-3 text-sm text-slate-400">
+          <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 text-xs font-bold">1</span>Push project to GitHub repository</li>
+          <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 text-xs font-bold">2</span>Create account at <span class="text-white">render.com</span></li>
+          <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 text-xs font-bold">3</span>Click "New +" → "Web Service" → Connect GitHub repo</li>
+          <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 text-xs font-bold">4</span>Set Build Command: <code class="bg-slate-800 px-2 py-0.5 rounded text-sky-300 mono text-xs">npm install</code></li>
+          <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 text-xs font-bold">5</span>Set Start Command: <code class="bg-slate-800 px-2 py-0.5 rounded text-sky-300 mono text-xs">node server.js</code></li>
+          <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 text-xs font-bold">6</span>Add environment variable: <code class="bg-slate-800 px-2 py-0.5 rounded text-sky-300 mono text-xs">NODE_ENV=production</code></li>
+          <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 text-xs font-bold">7</span>Click "Create Web Service" — deployment begins automatically!</li>
+        </ol>
+      </div>
+
+    </main>
+  </div>
+
+  <div id="toast" class="fixed top-5 right-5 z-50 px-5 py-3 rounded-xl text-white font-medium shadow-2xl bg-emerald-500"></div>
+  <script src="/js/app.js"></script>
+  <script>
+    async function testHealth() {
+      try {
+        const res = await apiFetch('/api/health');
+        const el = document.getElementById('api-test-result');
+        el.classList.remove('hidden');
+        el.textContent = JSON.stringify(res, null, 2);
+        showToast('API is healthy! ✅');
+      } catch(err) {
+        showToast('API test failed', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

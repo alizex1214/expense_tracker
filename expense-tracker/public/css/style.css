@@ -1,0 +1,78 @@
+/* public/css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* { font-family: 'Plus Jakarta Sans', sans-serif; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #fb7185 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card glow effects */
+.card-glow:hover {
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Animated gradient border */
+.border-gradient {
+  background: linear-gradient(#1e293b, #1e293b) padding-box,
+              linear-gradient(135deg, #38bdf8, #818cf8) border-box;
+  border: 1px solid transparent;
+}
+
+/* Category colors */
+.cat-food       { background: #fbbf24; }
+.cat-transport  { background: #34d399; }
+.cat-entertainment { background: #a78bfa; }
+.cat-utilities  { background: #60a5fa; }
+.cat-health     { background: #f87171; }
+.cat-shopping   { background: #fb923c; }
+.cat-education  { background: #2dd4bf; }
+.cat-other      { background: #94a3b8; }
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeInUp 0.4s ease forwards; }
+.fade-in-delay-1 { animation: fadeInUp 0.4s 0.1s ease both; }
+.fade-in-delay-2 { animation: fadeInUp 0.4s 0.2s ease both; }
+.fade-in-delay-3 { animation: fadeInUp 0.4s 0.3s ease both; }
+
+/* Toast notification */
+#toast {
+  transition: all 0.3s ease;
+  transform: translateX(120%);
+}
+#toast.show {
+  transform: translateX(0);
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  backdrop-filter: blur(4px);
+}
+
+/* Progress bar animation */
+@keyframes progress {
+  from { width: 0; }
+}
+.progress-bar { animation: progress 0.8s ease forwards; }
+
+/* Nav active state */
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-left: 2px solid #38bdf8;
+}
